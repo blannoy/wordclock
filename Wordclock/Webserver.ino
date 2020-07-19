@@ -7,8 +7,10 @@
 ESP8266WebServer webserver(80);
 StaticJsonBuffer<10000> jsonBuffer;
 
-ESP8266HTTPUpdateServer flashUpdateServer(true, U_FLASH);
-ESP8266HTTPUpdateServer spiffsUpdateServer(true, U_SPIFFS);
+//ESP8266HTTPUpdateServer flashUpdateServer(true, U_FLASH);
+//ESP8266HTTPUpdateServer spiffsUpdateServer(true, U_SPIFFS);
+ESP8266HTTPUpdateServer flashUpdateServer;
+ESP8266HTTPUpdateServer spiffsUpdateServer;
 
 void webserverSetup() {
   SPIFFS.begin();
@@ -18,6 +20,7 @@ void webserverSetup() {
   webserver.on("/api/wifi/disconnect", apiWifiDisconnect);
   webserver.on("/api/wifi/connect", apiWifiConnect);
   webserver.on("/api/led/test", apiShowTestColor);
+  webserver.on("/api/led/testall", apiShowAllLeds);
   webserver.on("/api/led/testWord", apiShowTestColorForWord);
   webserver.on("/api/led/wordColors", apiSetWordColors);
   webserver.on("/api/led/mode", apiSetLedMode);
@@ -237,6 +240,15 @@ void apiShowTestColor() {
 
   apiSendOK();
 
+}
+
+void apiShowAllLeds() {
+    String hue = webserver.arg("hue");
+    ledTestTime = millis() + 30000;
+  ledTestHue = hue.toInt();
+  ledTestWord = -2;
+
+  apiSendOK();
 }
 
 void apiShowTestColorForWord() { 

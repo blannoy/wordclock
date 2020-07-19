@@ -3,7 +3,7 @@
 #define LED_RAINBOW_TIME 1000
 
 #define NUM_LEDS 94
-#define DATA_PIN D2
+#define DATA_PIN D7
 
 #define LDR_PIN         A0
 #define LDR_DARK        10
@@ -200,7 +200,11 @@ void ledShowTestColor() {
           leds[pos].setHue(ledTestHue);
         }
       }
-    } else {
+    } else if (ledTestWord == -2) {
+        for(int i = 0; i < NUM_LEDS; i++) {
+        leds[i].setHue(ledTestHue);
+        }
+      } else {
       if (word.colorCodeInTable == ledTestWord) {
         for(int pos : word.leds) {
           leds[pos].setHue(ledTestHue);

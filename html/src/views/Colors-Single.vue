@@ -2,6 +2,7 @@
   <div>
     In deze stand is de woordklok altijd dezelfde kleur. 
     <hue-slider v-model="singleHue" />
+    <brightness-slider/>
     <br /><br /><br />
     <button v-on:click="save">Opslaan</button>
   </div>
@@ -9,6 +10,7 @@
 
 <script>
 import HueSlider from '@/components/HueSlider.vue'
+import BrightnessSlider from '@/components/BrightnessSlider.vue'
 
 export default {
   name: 'ColorsSingle',
@@ -24,7 +26,8 @@ export default {
     }
   },
   components: {
-    HueSlider
+    HueSlider,
+    BrightnessSlider
   },
   methods: {
     save() {

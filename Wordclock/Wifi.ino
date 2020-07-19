@@ -118,8 +118,8 @@ void wifiDelayedActivateAccessPoint() {
 
 void wifiDeactivateAccessPoint() {
   Serial.println("Deactivating access point");
-  WiFi.mode(WIFI_AP);
-  WiFi.softAPdisconnect(false);
+  WiFi.mode(WIFI_STA);
+  WiFi.softAPdisconnect(true);
   access_point_status = AP_OFF;
 }
 

@@ -1,7 +1,10 @@
 <template>
   <div class="about">
     <h1>Geavanceerde instellingen</h1>
-
+    <h3>Laat alle LEDs 30s branden</h3>
+    <div class="advancedGroup" id="allLeds">
+      <button class="btn btn-primary" v-on:click="turnOnAllLeds">Aan</button>
+    </div>
     <h3>Lichtsterkte</h3>
     <div class="advancedGroup">
          <div class="form-check">
@@ -58,7 +61,7 @@
       <h5>Firmware</h5>
       <form method="post" action="/api/update/flash" enctype="multipart/form-data">
         <div class="custom-file">
-          <input type="file" name="update" class="custom-file-input" id="flashfile" required>
+          <input type="file" accept=".bin,.bin.gz" name="firmware" class="custom-file-input" id="flashfile" required>
           <label class="custom-file-label" for="flashfile">Kies bestand</label>
         </div>
         <br /><br />
@@ -68,7 +71,7 @@
       <h5>Gebruikersinterface</h5>
       <form method="post" action="/api/update/spiffs" enctype="multipart/form-data">
         <div class="custom-file">
-          <input type="file" name="update" class="custom-file-input" id="flashfile" required>
+          <input type="file" accept=".bin,.bin.gz" name="filesystem" class="custom-file-input" id="flashfile" required>
           <label class="custom-file-label" for="flashfile">Kies bestand</label>
         </div>
         <br /><br />
@@ -146,6 +149,11 @@ export default {
         "max": this.$store.state.leds.brightness.max,
         "startHour": this.$store.state.leds.brightness.startHour,
         "endHour": this.$store.state.leds.brightness.endHour
+      }})
+    },
+    turnOnAllLeds() {
+      this.axios.get('/api/led/testall', { params: { 
+        hue: 0 
       }})
     },
     setHostname() {
